@@ -135,18 +135,6 @@ object Utils {
         return validPreviewSizes
     }
 
-    fun getCornerRoundedBitmap(srcBitmap: Bitmap, cornerRadius: Int): Bitmap {
-        val dstBitmap = Bitmap.createBitmap(srcBitmap.width, srcBitmap.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(dstBitmap)
-        val paint = Paint()
-        paint.isAntiAlias = true
-        val rectF = RectF(0f, 0f, srcBitmap.width.toFloat(), srcBitmap.height.toFloat())
-        canvas.drawRoundRect(rectF, cornerRadius.toFloat(), cornerRadius.toFloat(), paint)
-        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        canvas.drawBitmap(srcBitmap, 0f, 0f, paint)
-        return dstBitmap
-    }
-
     /** Convert NV21 format byte buffer to bitmap. */
     fun convertToBitmap(data: ByteBuffer, width: Int, height: Int, rotationDegrees: Int): Bitmap? {
         data.rewind()
@@ -169,39 +157,6 @@ object Utils {
             Log.e(TAG, "Error: " + e.message)
         }
         return null
-    }
-
-    internal fun openImagePicker(activity: Activity) {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.type = "image/*"
-        activity.startActivityForResult(intent, REQUEST_CODE_PHOTO_LIBRARY)
-    }
-
-    @Throws(IOException::class)
-    internal fun loadImage(context: Context, imageUri: Uri, maxImageDimension: Int): Bitmap? {
-        var inputStreamForSize: InputStream? = null
-        var inputStreamForImage: InputStream? = null
-        try {
-            inputStreamForSize = context.contentResolver.openInputStream(imageUri)
-            var opts = BitmapFactory.Options()
-            opts.inJustDecodeBounds = true
-            BitmapFactory.decodeStream(inputStreamForSize, null, opts)/* outPadding= */
-            val inSampleSize = Math.max(opts.outWidth / maxImageDimension, opts.outHeight / maxImageDimension)
-
-            opts = BitmapFactory.Options()
-            opts.inSampleSize = inSampleSize
-            inputStreamForImage = context.contentResolver.openInputStream(imageUri)
-            val decodedBitmap = BitmapFactory.decodeStream(inputStreamForImage, null, opts)/* outPadding= */
-            return maybeTransformBitmap(
-                context.contentResolver,
-                imageUri,
-                decodedBitmap
-            )
-        } finally {
-            inputStreamForSize?.close()
-            inputStreamForImage?.close()
-        }
     }
 
     private fun maybeTransformBitmap(resolver: ContentResolver, uri: Uri, bitmap: Bitmap?): Bitmap? {

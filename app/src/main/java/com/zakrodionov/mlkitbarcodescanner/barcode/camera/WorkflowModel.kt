@@ -40,7 +40,6 @@ class WorkflowModel(application: Application) : AndroidViewModel(application) {
         DETECTING,
         DETECTED,
         CONFIRMING,
-        CONFIRMED,
         SEARCHING,
         SEARCHED
     }
