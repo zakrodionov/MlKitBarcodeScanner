@@ -27,6 +27,9 @@ import com.zakrodionov.mlkitbarcodescanner.barcode.camera.CameraReticleAnimator
 import com.zakrodionov.mlkitbarcodescanner.barcode.camera.FrameProcessorBase
 import com.zakrodionov.mlkitbarcodescanner.barcode.camera.GraphicOverlay
 import com.zakrodionov.mlkitbarcodescanner.barcode.camera.WorkflowModel
+import com.zakrodionov.mlkitbarcodescanner.barcode.graphic.BarcodeConfirmingGraphic
+import com.zakrodionov.mlkitbarcodescanner.barcode.graphic.BarcodeLoadingGraphic
+import com.zakrodionov.mlkitbarcodescanner.barcode.graphic.BarcodeReticleGraphic
 import com.zakrodionov.mlkitbarcodescanner.barcode.utils.InputInfo
 import com.zakrodionov.mlkitbarcodescanner.barcode.utils.PreferenceUtils
 import java.io.IOException

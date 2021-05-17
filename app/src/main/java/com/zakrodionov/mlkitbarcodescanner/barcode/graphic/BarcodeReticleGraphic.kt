@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zakrodionov.mlkitbarcodescanner.barcode
+package com.zakrodionov.mlkitbarcodescanner.barcode.graphic
 
 import android.graphics.Canvas
 import android.graphics.Paint
