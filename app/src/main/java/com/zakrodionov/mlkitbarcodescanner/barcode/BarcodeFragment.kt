@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.common.internal.Objects
 import com.google.android.material.chip.Chip
 import com.zakrodionov.mlkitbarcodescanner.R
@@ -131,11 +131,11 @@ class BarcodeFragment : Fragment(R.layout.fragment_barcode), View.OnClickListene
     }
 
     private fun setUpWorkflowModel() {
-        workflowModel = ViewModelProviders.of(this).get(WorkflowModel::class.java)
+        workflowModel = ViewModelProvider(this).get(WorkflowModel::class.java)
 
         // Observes the workflow state changes, if happens, update the overlay view indicators and
         // camera preview state.
-        workflowModel!!.workflowState.observe(viewLifecycleOwner, Observer { workflowState ->
+        workflowModel?.workflowState?.observe(viewLifecycleOwner, Observer { workflowState ->
             if (workflowState == null || Objects.equal(currentWorkflowState, workflowState)) {
                 return@Observer
             }
